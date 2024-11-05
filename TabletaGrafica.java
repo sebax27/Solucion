@@ -70,13 +70,4 @@ public class TabletaGrafica {
         this.peso = peso;
     }
 
-    public String MostrarTableta() {
-        return "Tableta Gráfica"
-                + "\nSerial: " + serial
-                + "\nMarca: " + marca
-                + "\nTamaño: " + tamaño + " pulgadas"
-                + "\nPrecio: $" + precio
-                + "\nAlmacenamiento: " + almacenamiento
-                + "\nPeso: " + peso + " kg";
-    }
 }

@@ -79,13 +79,6 @@ public class EstudianteIngenieria {
         this.serial = serial;
     }
 
-    @Override
-    public String toString() {
-        return "Estudiante Ingeniería: " + nombre + " " + apellido
-                + "\nCédula: " + cedula
-                + "\nTeléfono: " + telefono
-                + "\nSemestre: " + numeroSemestre
-                + "\nPromedio: " + promedioAcumulado
-                + "\nSerial equipo: " + serial;
-    }
+
+    
 }

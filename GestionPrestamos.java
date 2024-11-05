@@ -1,22 +1,18 @@
 
-
 import java.util.LinkedList;
 import java.util.Scanner;
 
-
-
 public class GestionPrestamos {
-    private LinkedList<EstudianteIngenieria> Ingenieros;
-    private LinkedList<EstudianteDiseño> Diseñadores;
     private Importar im = new Importar();
     private Exportar ex = new Exportar();
-    private Scanner scanner;
+    private LinkedList<EstudianteIngenieria> Ingenieros;
+    private LinkedList<EstudianteDiseño> Diseñadores;
     
-   
+    private Scanner scanner;
 
     public GestionPrestamos() {
-        Ingenieros = new LinkedList<>();
-        Diseñadores = new LinkedList<>();
+        Ingenieros = im.leerArchivoIngenieria("EstudiantesIngenieria");
+        // Diseñadores = im.leerArchivoDiseño("EstudiantesDiseño");
         im = new Importar();
         ex = new Exportar();
         scanner = new Scanner(System.in);
@@ -130,21 +126,22 @@ public class GestionPrestamos {
     public void registrarPrestamoComputador() {
         scanner.nextLine(); // Limpiar el buffer
 
-        // Ingenieros = im.leerArchivoIngenieria("EstudiantesIngenieria");
-
-      
         String cedula;
-        System.out.print("Ingrese la cédula del estudiante: ");
-        cedula = scanner.nextLine();
-       
-        // gp.buscarEstudianteIngenieria(cedula);
+        
 
-        if(cedula == null){
-            
-            
+        while (true) {
+            System.out.print("Ingrese la cédula del estudiante: ");
+            cedula = scanner.nextLine();
+    
+            // Verificar si la cédula ya está registrada
+            EstudianteIngenieria estudianteExistente = buscarEstudianteIngenieria(cedula);
+            if (estudianteExistente != null) {
+                System.out.println("La cédula ingresada ya está registrada. Por favor, ingrese una cédula diferente.");
+            } else {
+                break; // Salir del bucle si la cédula no está registrada
+            }
         }
 
-     
         System.out.print("Ingrese el nombre del estudiante: ");
         String nombre = scanner.nextLine();
         System.out.print("Ingrese el apellido del estudiante: ");
@@ -165,6 +162,8 @@ public class GestionPrestamos {
 
         ex.exportarArchivoIngenieria(Ingenieros);
 
+
+
         System.out.println("Préstamo de equipo registrado para " + nombre + " " + apellido);
     }
 
@@ -172,13 +171,24 @@ public class GestionPrestamos {
         System.out.print("Ingrese el serial o cédula para buscar el préstamo: ");
         String identificador = scanner.next();
         EstudianteIngenieria estudiante = buscarEstudianteIngenieria(identificador);
-
+       
         if (estudiante != null) {
-            System.out.print("Ingrese el nuevo número de semestre: ");
-            estudiante.setNumeroSemestre(scanner.nextInt());
-            System.out.print("Ingrese el nuevo promedio acumulado: ");
-            estudiante.setPromedioAcumulado(scanner.nextFloat());
-            System.out.println("Préstamo modificado correctamente.");
+            for (EstudianteIngenieria e : Ingenieros) {
+                if (estudiante.getCedula().equals(identificador) || estudiante.getSerial().equals(identificador)) {
+
+                    System.out.println("Ingrese el nuevo telefono del estudiante: ");
+                    e.setTelefono(scanner.next());
+                    System.out.print("Ingrese el nuevo número de semestre: ");
+                    e.setNumeroSemestre(scanner.nextInt());
+                    System.out.print("Ingrese el nuevo promedio acumulado: ");
+                    e.setPromedioAcumulado(scanner.nextFloat());
+                    System.out.println("Préstamo modificado correctamente.");
+
+                    ex.exportarArchivoIngenieria(Ingenieros);
+
+                }
+
+            }
         } else {
             System.out.println("No se encontró un equipo con el identificador proporcionado.");
         }
@@ -190,20 +200,31 @@ public class GestionPrestamos {
         EstudianteIngenieria estudiante = buscarEstudianteIngenieria(identificador);
 
         if (estudiante != null) {
-            Ingenieros.remove(estudiante);
-            System.out.println("Equipo devuelto y registro eliminado.");
+            for (EstudianteIngenieria e : Ingenieros) {
+                if (e.getCedula().equals(identificador) || e.getSerial().equals(identificador)) {
+                    
+                    Ingenieros.remove(e);
+                    System.out.println("Equipo devuelto y registro eliminado.");
+
+                    ex.exportarArchivoIngenieria(Ingenieros);
+
+                }
+
+            }
         } else {
             System.out.println("No se encontró un equipo con el identificador proporcionado.");
         }
+       
     }
 
     public void buscarEquipoComputador() {
-        System.out.print("Ingrese el serial o cédula para buscar el equipo: ");
+        System.out.print("Ingrese el serial o cedula para buscar el equipo: ");
         String identificador = scanner.next();
         EstudianteIngenieria estudiante = buscarEstudianteIngenieria(identificador);
 
         if (estudiante != null) {
             System.out.println("Equipo encontrado: " + estudiante);
+           
         } else {
             System.out.println("No se encontró un equipo con el identificador proporcionado.");
         }
@@ -220,9 +241,24 @@ public class GestionPrestamos {
 
     public void registrarPrestamoTableta() {
 
-        scanner.nextLine(); // Limpiar el buffer
-        System.out.print("Ingrese la cédula del estudiante: ");
-        String cedula = scanner.nextLine();
+        scanner.nextLine();
+
+        String cedula;
+
+        while (true) {
+            System.out.print("Ingrese la cédula del estudiante: ");
+            cedula = scanner.nextLine();
+    
+            // Verificar si la cédula ya está registrada
+            EstudianteDiseño estudianteExistente = buscarEstudianteDiseño(cedula);
+            if (estudianteExistente != null) {
+                System.out.println("La cédula ingresada ya está registrada. Por favor, ingrese una cédula diferente.");
+            } else {
+                break; // Salir del bucle si la cédula no está registrada
+            }
+        }
+       
+    
         System.out.print("Ingrese el nombre del estudiante: ");
         String nombre = scanner.nextLine();
         System.out.print("Ingrese el apellido del estudiante: ");
@@ -252,29 +288,44 @@ public class GestionPrestamos {
         EstudianteDiseño estudiante = buscarEstudianteDiseño(identificador);
 
         if (estudiante != null) {
-            System.out.print("Ingrese la nueva modalidad de estudio: ");
-            estudiante.setModalidadEstudio(scanner.next());
-            System.out.print("Ingrese la nueva cantidad de asignaturas: ");
-            estudiante.setCantidadAsignaturas(scanner.nextInt());
+            for (EstudianteDiseño e : Diseñadores) {
+                if (estudiante.getCedula().equals(identificador) || estudiante.getSerial().equals(identificador)) {
 
-            ex.exportarArchivoDiseño(Diseñadores);
+                    System.out.println("Ingrese el nuevo telefono del estudiante: ");
+                    e.setTelefono(scanner.next());
+                    System.out.print("Ingrese la nueva modalidad de estudio del estudiante: ");
+                    e.setModalidadEstudio(scanner.next());
+                    System.out.print("Ingrese la nueva cantidad de asignaturas del estudiante: ");
+                    e.setCantidadAsignaturas(scanner.nextInt());
+                    System.out.println("Préstamo modificado correctamente.");
 
-            System.out.println("Préstamo modificado correctamente.");
+                    ex.exportarArchivoDiseño(Diseñadores);
+
+                }
+
+            }
         } else {
             System.out.println("No se encontró un equipo con el identificador proporcionado.");
         }
     }
+
     public void devolverEquipoTableta() {
         System.out.print("Ingrese el serial o cédula para eliminar el préstamo: ");
         String identificador = scanner.next();
         EstudianteDiseño estudiante = buscarEstudianteDiseño(identificador);
 
         if (estudiante != null) {
-            Diseñadores.remove(estudiante);
+            for (EstudianteDiseño e : Diseñadores) {
+                if (e.getCedula().equals(identificador) || e.getSerial().equals(identificador)) {
 
-            ex.exportarArchivoDiseño(Diseñadores);
+                    Diseñadores.remove(e);
+                    System.out.println("Equipo devuelto y registro eliminado.");
 
-            System.out.println("Equipo devuelto y registro eliminado.");
+                    ex.exportarArchivoIngenieria(Ingenieros);
+
+                }
+
+            }
         } else {
             System.out.println("No se encontró un equipo con el identificador proporcionado.");
         }
@@ -304,16 +355,16 @@ public class GestionPrestamos {
     public void imprimirInventarioTotal() {
         System.out.println("\n=== INVENTARIO TOTAL ===");
         System.out.println("Préstamos para Estudiantes de Ingeniería:");
-        Ingenieros = im.leerArchivoIngenieria("EstudiantesIngenieria");
+       
         for (EstudianteIngenieria estudiante : Ingenieros) {
             System.out.println(estudiante);
         }
         System.out.println("\nPréstamos para Estudiantes de Diseño:");
-        Diseñadores = im.leerArchivoDiseño("EstudiantesDiseño");
+        
         for (EstudianteDiseño estudiante : Diseñadores) {
             System.out.println(estudiante);
         }
     }
 
- 
+    
 }

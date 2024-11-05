@@ -80,12 +80,5 @@ public class EstudianteDiseño {
     }
 
         
-        public String mostrarEstudainteDiseño() {
-        return "Estudiante Diseño: " + nombre + " " + apellido
-                    + "\nCédula: " + cedula
-                    + "\nTeléfono: " + telefono
-                    + "\nModalidad: " + modalidadEstudio
-                    + "\nAsignaturas: " + cantidadAsignaturas
-                    + "\nSerial equipo: " + serial;
-        }
+        
     }

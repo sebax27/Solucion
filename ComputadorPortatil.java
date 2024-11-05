@@ -71,13 +71,6 @@ public class ComputadorPortatil {
         this.procesador = procesador;
     }
 
-    public String MostrarComputador() {
-        return "Computador Portátil"
-                + "\nSerial: " + serial
-                + "\nMarca: " + marca
-                + "\nTamaño: " + tamaño + " pulgadas"
-                + "\nPrecio: $" + precio
-                + "\nSistema Operativo: " + sistemaOperativo
-                + "\nProcesador: " + procesador;
-    }
+
+    
 }
