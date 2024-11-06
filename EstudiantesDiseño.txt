@@ -1,0 +1,16 @@
+Cedula: 98626805
+Nombre: Luis
+Apellido: Carmelo
+telefono: 3134567567
+Modalidad: virtual
+Asignaturas: 5
+Serial: ser4
+---------------------------------------
+Cedula: 56422345
+Nombre: Sara
+Apellido: Quintero
+telefono: 3124446287
+Modalidad: presencial
+Asignaturas: 2
+Serial: ser6
+---------------------------------------

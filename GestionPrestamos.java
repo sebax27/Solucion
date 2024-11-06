@@ -13,7 +13,7 @@ public class GestionPrestamos {
 
     public GestionPrestamos() {
         Ingenieros = im.leerArchivoIngenieria("EstudiantesIngenieria");
-        // Diseñadores = im.leerArchivoDiseño("EstudiantesDiseño");
+        Diseñadores = im.leerArchivoDiseño("EstudiantesDiseño");
         im = new Importar();
         ex = new Exportar();
         scanner = new Scanner(System.in);
@@ -64,7 +64,7 @@ public class GestionPrestamos {
             System.out.println("Ingrese la cedula del estudiante: ");
             cedula = scanner.nextLine();
 
-            if(cedula.matches("[0-9][1,10]")){
+            if(cedula.matches("[0-9]{1,10}")){
                 break;
             }else{
                 System.out.println("Por favor ingrese solo números entre 1 y 10 dígitos.");
@@ -301,6 +301,8 @@ public class GestionPrestamos {
         System.out.println("Préstamo de equipo registrado para " + nombre + " " + apellido);
     }
 
+    
+
     public void modificarPrestamoComputador() {
         System.out.print("Ingrese el serial o cédula para buscar el préstamo: ");
         String identificador = scanner.next();
@@ -355,9 +357,9 @@ public class GestionPrestamos {
         System.out.print("Ingrese el serial o cedula para buscar el equipo: ");
         String identificador = scanner.next();
         EstudianteIngenieria estudiante = buscarEstudianteIngenieria(identificador);
-
         if (estudiante != null) {
             System.out.println("Equipo encontrado: " + estudiante);
+            
 
         } else {
             System.out.println("No se encontró un equipo con el identificador proporcionado");
@@ -397,13 +399,15 @@ public class GestionPrestamos {
         String telefono = leerTelefono();
         String modalidadEstudio = leerModalidadEstudio();
         int cantidadAsignaturas = leerCantidadAsignaturas();
-        scanner.nextLine(); // Limpiar el buffer
+       
         String serial = leerSerial();
 
         EstudianteDiseño estudiante = new EstudianteDiseño(cedula, nombre, apellido, telefono, modalidadEstudio, cantidadAsignaturas, serial);
         Diseñadores.add(estudiante);
 
         ex.exportarArchivoDiseño(Diseñadores);
+
+        
 
         System.out.println("Préstamo de equipo registrado para " + nombre + " " + apellido);
     }
@@ -481,15 +485,31 @@ public class GestionPrestamos {
     public void imprimirInventarioTotal() {
         System.out.println("\n=== INVENTARIO TOTAL ===");
         System.out.println("Préstamos para Estudiantes de Ingeniería:");
-
+    
         for (EstudianteIngenieria estudiante : Ingenieros) {
-            System.out.println(estudiante);
+    
+            System.out.println("Cedula: " + estudiante.getCedula()
+                + " Nombre: " + estudiante.getNombre() 
+                + " Apellido" + estudiante.getApellido()
+                + " Telefono: " + estudiante.getTelefono()
+                + " Número de Semestre: " + estudiante.getNumeroSemestre()
+                + " Promedio Acumulado: " + estudiante.getPromedioAcumulado()
+                + " Serial: " + estudiante.getSerial());
         }
+    
         System.out.println("\nPréstamos para Estudiantes de Diseño:");
-
+    
         for (EstudianteDiseño estudiante : Diseñadores) {
-            System.out.println(estudiante);
+            // Concatenar correctamente los valores de los atributos del estudiante
+            System.out.println("Cedula: " + estudiante.getCedula() 
+                + " Nombre: " + estudiante.getNombre() 
+                + " Apellido " + estudiante.getApellido() 
+                + " Telefono: " + estudiante.getTelefono()
+                + " Modalidad de Estudio: " + estudiante.getModalidadEstudio()
+                + " Asignaturas: " + estudiante.getCantidadAsignaturas()
+                + " Serial: " + estudiante.getSerial());
         }
     }
+    
 
 }

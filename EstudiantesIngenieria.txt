@@ -1,0 +1,16 @@
+Cedula: 48624357
+Nombre: Kamila
+Apellido: Mejia
+telefono: 3136234437
+Semestre actual: 10
+Promedio acumulado: 5.0
+Serial: ser10
+---------------------------------------
+Cedula: 666734562
+Nombre: Santiago
+Apellido: cardenas
+telefono: 3232323
+Semestre actual: 4
+Promedio acumulado: 2.0
+Serial: ser12
+---------------------------------------
