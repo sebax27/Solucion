@@ -322,6 +322,8 @@ public class GestionPrestamos {
 
                     ex.exportarArchivoIngenieria(Ingenieros);
 
+break;
+
                 }
 
             }
@@ -343,6 +345,8 @@ public class GestionPrestamos {
                     System.out.println("Equipo devuelto y registro eliminado ");
 
                     ex.exportarArchivoIngenieria(Ingenieros);
+
+break;
 
                 }
 
@@ -431,6 +435,8 @@ public class GestionPrestamos {
 
                     ex.exportarArchivoDiseño(Diseñadores);
 
+break;
+
                 }
 
             }
@@ -452,6 +458,8 @@ public class GestionPrestamos {
                     System.out.println("Equipo devuelto y registro eliminado ");
 
                     ex.exportarArchivoIngenieria(Ingenieros);
+
+break;
 
                 }
 
